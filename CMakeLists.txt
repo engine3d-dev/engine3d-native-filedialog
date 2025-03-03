@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(engine3d-nfd LANGUAGES C CXX)
 
-new_build_library(
+build_library(
     DIRECTORIES src
 )
 

@@ -26,7 +26,7 @@
 #include <windows.h>
 #include <shobjidl.h>
 // #include "nfd_common.h"
-#include <engine3d-nfd/nfd_common.h>
+#include <nfd/nfd_common.h>
 
 
 #define COM_INITFLAGS ::COINIT_APARTMENTTHREADED | ::COINIT_DISABLE_OLE1DDE

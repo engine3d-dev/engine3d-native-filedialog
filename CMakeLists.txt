@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.27)
-project(engine3d-nfd LANGUAGES C CXX)
+cmake_minimum_required(VERSION 4.0)
+project(engine3d-nfd LANGUAGES CXX)
 
 build_library(
     DIRECTORIES src

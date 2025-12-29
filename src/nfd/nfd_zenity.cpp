@@ -9,12 +9,12 @@
 #include <string.h>
 // #include "nfd.h"
 // #include "nfd_common.h"
-#include <engine3d-nfd/nfd.h>
-#include <engine3d-nfd/nfd_common.h>
+#include <nfd/nfd.h>
+#include <nfd/nfd_common.h>
 
 #define SIMPLE_EXEC_IMPLEMENTATION
 // #include "simple_exec.h"
-#include <engine3d-nfd/simple_exec.h>
+#include <nfd/simple_exec.h>
 
 
 const char NO_ZENITY_MSG[] = "zenity not installed";

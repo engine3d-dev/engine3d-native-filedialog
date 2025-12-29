@@ -8,7 +8,7 @@
 #include <assert.h>
 #include <string.h>
 // #include "nfd_common.h"
-#include <engine3d-nfd/nfd_common.h>
+#include <nfd/nfd_common.h>
 
 static char g_errorstr[NFD_MAX_STRLEN] = {0};
 

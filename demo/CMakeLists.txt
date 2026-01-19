@@ -4,8 +4,9 @@ project(demo LANGUAGES C CXX)
 build_application(
     SOURCES application.cpp
     PACKAGES
-    engine3d-nfd
+    nfd
+
     LINK_PACKAGES
-    engine3d-nfd::engine3d-nfd
+    nfd::nfd
 )
 

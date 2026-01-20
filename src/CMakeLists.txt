@@ -16,7 +16,7 @@ if(WIN32)
 endif(WIN32)
 
 if(APPLE)
-    list(APPEND all_src nfd/cocoa.m)
+    # list(APPEND all_src nfd/nfd_cocoa.m)
 endif(APPLE)
 
 if(LINUX)

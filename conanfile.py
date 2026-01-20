@@ -15,7 +15,7 @@ class NativeFileDialog(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
 
-    exports_sources = "CMakeLists.txt", "src/CMakeLists.txt"
+    exports_sources = "CMakeLists.txt", "nfd/*", "src/*"
 
     # Putting all of your build-related dependencies here
     # def build_requirements(self):
@@ -32,10 +32,10 @@ class NativeFileDialog(ConanFile):
         self.tool_requires("cmake-modules-toolchain/1.0.3")
     
     # This is how exporting the sources work
-    def export_sources(self):
-        copy(self,"CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
-        copy(self,"*h", self.recipe_folder, self.export_sources_folder)
-        copy(self,"*.cpp", self.recipe_folder, self.export_sources_folder)
+    # def export_sources(self):
+    #     copy(self,"CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
+    #     copy(self,"*h", self.recipe_folder, self.export_sources_folder)
+    #     copy(self,"*.cpp", self.recipe_folder, self.export_sources_folder)
 
     def config_options(self):
         if self.settings.os == "Windows":

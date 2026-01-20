@@ -1,0 +1,51 @@
+name: Deploy to MacOS Armv8
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main  # Only trigger for PRs merged into main
+
+jobs:
+  macos_armv8:
+    if: github.event.pull_request.merged == true
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Homebrew
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: Install LLVM
+        run: brew install python pipx
+
+      - name: Pipx installing conan
+        shell: pwsh
+        run: |
+            pipx install "conan>=2.18.2"
+            pipx upgrade conan
+
+      - name: Setting up Conan configuration
+        shell: pwsh
+        run: |
+          conan config install https://github.com/engine3d-dev/conan-config.git
+          conan atlas setup
+
+      - name: Creating Release build for nfd 
+        shell: pwsh
+        run: conan atlas create . -s build_type=Release
+      
+      - name: Creating Debug build for nfd 
+        shell: pwsh
+        run: conan atlas create . -s build_type=Debug
+      
+      - name: Creating MinSizeRel build for nfd
+        shell: pwsh
+        run: conan atlas create . -s build_type=MinSizeRel
+      
+      - name: Login to JFrog
+        run: conan remote login -p ${{ secrets.JFROG_USER_TOKEN_ID }} engine3d-conan ${{ secrets.JFROG_USERNAME }}
+      
+      - name: Uploading nfd to engine3d-conan remote repositories
+        shell: pwsh
+        run: conan upload nfd/3.0 --r=engine3d-conan --confirm

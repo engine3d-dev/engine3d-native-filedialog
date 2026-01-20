@@ -1,26 +1,26 @@
 
 set(
     all_headers
-    ../engine3d-nfd/nfd.h
-    ../engine3d-nfd/nfd_common.h
-    ../engine3d-nfd/simple_exec.h
+    ../nfd/nfd.h
+    ../nfd/nfd_common.h
+    ../nfd/simple_exec.h
 )
 
 set(
     all_src
-    engine3d-nfd/nfd_common.c
+    nfd/nfd_common.cpp
 )
 
 if(WIN32)
-    list(APPEND all_src engine3d-nfd/nfd_win.cpp)
+    list(APPEND all_src nfd/nfd_win.cpp)
 endif(WIN32)
 
 if(APPLE)
-    list(APPEND all_src engine3d-nfd/cocoa.m)
+    # list(APPEND all_src nfd/nfd_cocoa.m)
 endif(APPLE)
 
 if(LINUX)
-list(APPEND all_src engine3d-nfd/nfd_gtk.c)
+list(APPEND all_src nfd/nfd_gtk.cpp)
 endif(LINUX)
 
 add_library(${PROJECT_NAME} ${all_headers} ${all_src})

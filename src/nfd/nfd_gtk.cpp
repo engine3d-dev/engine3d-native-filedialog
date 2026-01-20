@@ -10,8 +10,8 @@
 #include <gtk/gtk.h>
 // #include "nfd.h"
 // #include "nfd_common.h"
-#include <engine3d-nfd/nfd.h>
-#include <engine3d-nfd/nfd_common.h>
+#include <nfd/nfd.h>
+#include <nfd/nfd_common.h>
 
 const char INIT_FAIL_MSG[] = "gtk_init_check failed to initilaize GTK+";
 

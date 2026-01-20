@@ -1,38 +1,41 @@
 import os
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
-from conan.tools.system.package_manager import Apt, Yum, PacMan, Zypper
-from conan.tools.scm import Git
 from conan.tools.files import copy
-import os
 
 class NativeFileDialog(ConanFile):
-    name = "engine3d-nfd"
-    version = "1.0"
+    name = "nfd"
+    version = "3.0"
     package_type = "library"
     license = "Appache-2.0"
-    homepage = "https://github.com/engine3d-dev/engine3d-nfd"
+    homepage = "https://github.com/engine3d-dev/nfd"
 
     # Binary configuration
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
 
-    # export_source = "*", "src/CMakeLists.txt", "src/engine3d-nfd/*.c", "src/engine3d-nfd/*.cpp", "src/engine3d-nfd/nfd_win.cpp"
-    exports_sources = "CMakeLists.txt", "src/CMakeLists.txt"
+    exports_sources = "CMakeLists.txt", "nfd/*", "src/*"
 
     # Putting all of your build-related dependencies here
+    # def build_requirements(self):
+    #     self.tool_requires("ninja/1.13.1")
+    #     self.tool_requires("cmake/4.1.2")
+    #     self.tool_requires("engine3d-cmake-utils/4.0")
     def build_requirements(self):
-        self.tool_requires("make/4.4.1")
-        self.tool_requires("cmake/3.27.1")
-        self.tool_requires("engine3d-cmake-utils/3.0")
+        # self.tool_requires("make/4.4.1")
+        # self.tool_requires("cmake/4.1.1")
+        # self.tool_requires("engine3d-cmake-utils/4.0")
+        self.tool_requires("cmake/4.1.2")
+        self.tool_requires("ninja/1.13.1")
+        self.tool_requires("engine3d-cmake-utils/4.0")
+        self.tool_requires("cmake-modules-toolchain/1.0.3")
     
     # This is how exporting the sources work
-    def export_sources(self):
-        copy(self,"CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
-        copy(self,"*.h", self.recipe_folder, self.export_sources_folder)
-        copy(self,"*c", self.recipe_folder, self.export_sources_folder)
-        copy(self,"*.cpp", self.recipe_folder, self.export_sources_folder)
+    # def export_sources(self):
+    #     copy(self,"CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
+    #     copy(self,"*h", self.recipe_folder, self.export_sources_folder)
+    #     copy(self,"*.cpp", self.recipe_folder, self.export_sources_folder)
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -61,7 +64,7 @@ class NativeFileDialog(ConanFile):
 
     def package(self):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, pattern="*.h", src=os.path.join(self.source_folder, "engine3d-nfd"), dst=os.path.join(self.package_folder, "engine3d-nfd"))
+        copy(self, pattern="*.h", src=os.path.join(self.source_folder, "nfd"), dst=os.path.join(self.package_folder, "nfd"))
         copy(self, pattern="*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
         copy(self, pattern="*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
         copy(self, pattern="*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
@@ -71,6 +74,6 @@ class NativeFileDialog(ConanFile):
         cmake.install()
     
     def package_info(self):
-        self.cpp_info.set_property("cmake_target_name", "engine3d-nfd::engine3d-nfd")
-        self.cpp_info.libs = ["engine3d-nfd"]
-        self.cpp_info.includedirs = ['./', './engine3d-nfd']
+        self.cpp_info.set_property("cmake_target_name", "nfd::nfd")
+        self.cpp_info.libs = ["nfd"]
+        self.cpp_info.includedirs = ['./', './nfd']
